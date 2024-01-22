@@ -19,11 +19,11 @@ type cacheDb struct {
 }
 
 // init cache db
-func (api *ApiClientSettings) initDb() cacheDb {
+func (api *ApiClientSettings) InitDb() cacheDb {
 	// check if db file is specified
 	// if not, use default file name
 	if api.CacheFile == "" {
-		api.CacheFile = "pcapi_cache.db"
+		api.CacheFile = "./data/pcapi_cache.db"
 	}
 
 	// open db file
