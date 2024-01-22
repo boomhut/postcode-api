@@ -74,7 +74,7 @@ func NewApiClientSettings(apiBearerToken string, cacheFile string, cacheTtl time
 		CacheFile:      cacheFile,
 	}
 	// set cachedb
-	api.Cache = api.initDb()
+	api.Cache = api.InitDb()
 
 	// get api limits info from cache
 	api.GetFromCache()
@@ -84,7 +84,7 @@ func NewApiClientSettings(apiBearerToken string, cacheFile string, cacheTtl time
 }
 
 // function to fetch from api
-func (api *ApiClientSettings) fetchFromApi(postcode string, number string) *ApiFullResponse {
+func (api *ApiClientSettings) FetchFromApi(postcode string, number string) *ApiFullResponse {
 	// fetch from api
 	// prepare request
 	req, err := http.NewRequest("GET", api.ApiEndpoint+"postcode/full?postcode="+postcode+"&number="+number, nil)
@@ -172,7 +172,7 @@ func (api *ApiClientSettings) GetPostcodeInfo(postcode string, number string) *A
 		}
 	}
 	// fetch from api
-	apiResponse := api.fetchFromApi(postcode, number)
+	apiResponse := api.FetchFromApi(postcode, number)
 	// save to cache, if valid response
 	if apiResponse != nil {
 		api.Cache.SaveToCache(postcode+number, cache{*apiResponse, time.Now()})
@@ -202,7 +202,7 @@ func (api *ApiClientSettings) GetPIS(postcode string, number string) *ApiShortRe
 		return &ApiShortResponse{cached.ApiFullResponse.Street, cached.ApiFullResponse.City}
 	}
 	// fetch from api
-	apiResponse := api.fetchFromApi(postcode, number)
+	apiResponse := api.FetchFromApi(postcode, number)
 	// save to cache, if valid response
 	if apiResponse != nil {
 		api.Cache.SaveToCache(postcode+number, cache{*apiResponse, time.Now()})
