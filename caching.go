@@ -1,4 +1,4 @@
-package postcode
+package postcodeapi
 
 import (
 	"encoding/json"
